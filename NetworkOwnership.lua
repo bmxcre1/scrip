@@ -60,7 +60,7 @@ function getAge(part)
 end
 getgenv().isnetworkowner = function(part)
     if part:IsA("Part") or part:IsA("BasePart") or part:IsA("MeshPart") or part:IsA("UnionOperation") then
-        if getAge(part) and checkAnchor(part) and getNearest(part) and checkDistance(part) or isDescendant(part)then
+        if getAge(part) and checkAnchor(part) and getNearest(part) and checkDistance(part) or isDescendant(part) then
             return true
         else
             return false
