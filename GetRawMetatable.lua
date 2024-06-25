@@ -3,8 +3,14 @@ getgenv().getrawmetatable = function(obj)
     if not metatable then return nil end
 
     local metatables = {}
-    while metatable and task.wait() do
+    local seen = {}
+
+    while metatable do
+        if seen[metatable] then
+            break -- Prevent infinite loop
+        end
         table.insert(metatables, metatable)
+        seen[metatable] = true
         metatable = getmetatable(metatable)
     end
     return metatables
