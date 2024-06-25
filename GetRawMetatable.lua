@@ -3,14 +3,14 @@ getgenv().getrawmetatable = function(obj)
     if not metatable then return nil end
 
     local metatables = {}
-    while metatable do
+    while metatable and task.wait() do
         table.insert(metatables, metatable)
         metatable = getmetatable(metatable)
     end
     return metatables
 end
 
-function setrawmetatable = function(obj, mt)
+getgenv().setrawmetatable = function(obj, mt)
     if type(obj) == 'table' and type(mt) == 'table' then
         setmetatable(obj, mt)
         return true
