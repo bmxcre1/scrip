@@ -1,7 +1,12 @@
 -- // GUI TO LUA \\ --
 
 -- // INSTANCES: 43 | SCRIPTS: 2 | MODULES: 0 \\ --
-
+if game.CoreGui:FindFirstChild("TWD") then
+	game.CoreGui:FindFirstChild("TWD"):Destroy()
+end
+task.wait()
+	
+	
 local UI = {}
 
 -- // StarterGui.TWD \\ --
@@ -467,6 +472,8 @@ local script = UI["9"]
 							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("Part").CFrame 
 						elseif loot:FindFirstChildOfClass("MeshPart") then
 							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("MeshPart").CFrame 
+							task.wait()
+							fireproximityprompt(loot:FindFirstDescendantOfClass("ProximityPrompt"))
 						else 
 							warn("unable to find a valid teleportable part")
 						end
