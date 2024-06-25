@@ -31,4 +31,5 @@ getgenv().getrawmetatable = function(obj)
     return {raw_meta = raw_meta, all_tables = all_tables}
 end
 
+print("[+] Loaded getrawmetatable(<Object>)")
 
