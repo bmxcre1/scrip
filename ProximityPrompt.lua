@@ -1,5 +1,5 @@
 getgenv().fireproximityprompt = function(prompt)
-	if type(prompt) ~= "string" and type(prompt) ~= "table" and prompt:IsA("ProximityPrompt") then
+	if typeof(prompt) == "Instance" and prompt:IsA("ProximityPrompt") then
         coroutine.wrap(function()
             local old = {
                 sight = prompt.RequiresLineOfSight,
@@ -8,16 +8,29 @@ getgenv().fireproximityprompt = function(prompt)
                 en = prompt.Enabled
             }
             prompt.RequiresLineOfSight = false 
-            prompt.MaxActivationDistance = 99999999999999999999999999
+            prompt.MaxActivationDistance = 999999999
             prompt.HoldDuration = 0
-            prompt.Enabled = false
+            prompt.Enabled = true
+            coroutine.wrap(function()
+                for i =1,50 do 
+                    for _, prompt_u in ipairs(game.Players.LocalPlayer.PlayerGui.ProximityPrompts:GetChildren()) do 
+                        if prompt_u.Name == "Prompt"  then
+                            prompt_u.Enabled = false 
+                            prompt_u.Enabled = true
+                        end
+                    end
+                end
+            end)()
+            task.wait(.05)
             prompt:InputHoldBegin()
-            task.wait()
             prompt:InputHoldEnd()
-            prompt.RequiresLineOfSight = old.sight
-            prompt.MaxActivationDistance = old.ad 
-            prompt.HoldDuration = old.hd 
-            prompt.Enabled = old.en
+            coroutine.wrap(function()
+                task.wait(.01)
+                prompt.Enabled = old.en
+                prompt.MaxActivationDistance = old.ad
+                prompt.RequiresLineOfSight = old.sight
+                prompt.HoldDuration = old.hd 
+            end)()
         end)()
 	else 
         warn("expected 'ProximityPrompt'")
