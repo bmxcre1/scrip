@@ -4,7 +4,7 @@ function getNearest(part)
     for _, player in next, game.Players:GetPlayers() do
         if player.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
             local distance = (player.Character.PrimaryPart.Position - part.Position).magnitude
-            if distance <= last_distance then
+            if distance <= last_distance and player.SimulationRadius > game.Players.LocalPlayer.SimulationRadius then
                 last_distance = distance
                 closest = player
             end
@@ -62,7 +62,7 @@ end
 
 getgenv().isnetworkowner = function(part)
     if part:IsA("Part") or part:IsA("BasePart") or part:IsA("MeshPart") or part:IsA("UnionOperation") then
-        if getAge(part) and checkAnchor(part) and getNearest(part) and checkDistance(part) or isDescendant(part)  then
+        if getAge(part) and checkAnchor(part)  and checkDistance(part) or isDescendant(part)  then
             return true
         else
             return false
