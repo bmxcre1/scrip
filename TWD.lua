@@ -472,7 +472,6 @@ local script = UI["9"]
 							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("Part").CFrame 
 						elseif loot:FindFirstChildOfClass("MeshPart") then
 							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("MeshPart").CFrame 
-							task.wait()
 							fireproximityprompt(loot:FindFirstDescendantOfClass("ProximityPrompt"))
 						else 
 							warn("unable to find a valid teleportable part")
