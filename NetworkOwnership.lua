@@ -71,3 +71,5 @@ getgenv().isnetworkowner = function(part)
         warn("[-] Argument #1 was not a valid part")
     end
 end
+
+print("isnetworkowner(<Part>) loaded")
