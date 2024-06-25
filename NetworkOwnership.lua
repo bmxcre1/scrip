@@ -72,4 +72,4 @@ getgenv().isnetworkowner = function(part)
     end
 end
 
-print("isnetworkowner(<Part>) loaded")
+print("[+] Loaded isnetworkowner(<Part>)")
