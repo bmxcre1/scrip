@@ -2,7 +2,7 @@ function getNearest(part)
     local last_distance = 9e9
     local closest = nil
     for _, player in next, game.Players:GetPlayers() do
-        if player.Character and player.Character.PrimaryPart ~= nil then
+        if player.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
             local distance = (player.Character.PrimaryPart.Position - part.Position).magnitude
             if distance <= last_distance then
                 last_distance = distance
@@ -20,7 +20,7 @@ function getNearest(part)
 end
 
 function checkDistance(part)  
-    if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.PrimaryPart ~= nil then
+    if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
         local sim_radius = game.Players.LocalPlayer.SimulationRadius
         local distance = (game.Players.LocalPlayer.Character.PrimaryPart.Position - part.Position).magnitude
         if distance <= sim_radius then
