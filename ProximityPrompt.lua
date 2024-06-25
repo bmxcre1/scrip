@@ -23,3 +23,5 @@ getgenv().fireproximityprompt = function(prompt)
         warn("expected 'ProximityPrompt'")
 	end
 end
+
+print("[+] Loaded fireproximityprompt(<ProximityPrompt>)")
