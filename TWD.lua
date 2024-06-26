@@ -1,12 +1,26 @@
 -- // GUI TO LUA \\ --
-
--- // INSTANCES: 43 | SCRIPTS: 2 | MODULES: 0 \\ --
-if game.CoreGui:FindFirstChild("TWD") then
-	game.CoreGui:FindFirstChild("TWD"):Destroy()
+for _,v in next,game.CoreGui:GetChildren() do
+	if v.Name == "TWD" then
+		v:Destroy()
+	end
 end
-task.wait()
-	
-	
+-- // INSTANCES: 43 | SCRIPTS: 2 | MODULES: 0 \\ --
+locating = true
+locations = {
+	["Military"] = Vector3.new(-1032, 80, 269);
+	["Sherrif"] = Vector3.new(-2149, 106, 9);
+	["Terminus"] = Vector3.new(-3572, 80, -3480);
+	["Woodbury"] = Vector3.new(-8064, 80, -2728);
+	["Prison"] =  Vector3.new(-7566, 81, 2075);
+	["Town"] = Vector3.new(-4679, 97, 2067)
+}
+
+--// SETUP
+location_part = Instance.new("Part")
+location_part.Name = "Location"
+location_part.Anchored = true
+location_part.CanCollide = false
+location_part.Transparency = 1
 local UI = {}
 
 -- // StarterGui.TWD \\ --
@@ -469,16 +483,42 @@ local script = UI["9"]
 				clone_button.MouseButton1Click:connect(function()
 					if loot:IsA("Model") then
 						if loot:FindFirstChildOfClass("Part") then
-							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("Part").CFrame 
+							location_part:ClearAllChildren()
+							location_part.Parent = workspace
+							location_part.CFrame = loot:FindFirstChildOfClass("Part").CFrame
+							local a = Instance.new("Attachment",location_part)
+							local beam = Instance.new("Beam",location_part)
+							beam.FaceCamera = true
+							beam.Width0 = .5
+							beam.Width1 = .5
+							beam.Attachment0 = a
+							beam.Attachment1 = game.Players.LocalPlayer.Character.Head.FaceFrontAttachment 
 						elseif loot:FindFirstChildOfClass("MeshPart") then
-							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("MeshPart").CFrame 
-							fireproximityprompt(loot:FindFirstDescendantOfClass("ProximityPrompt"))
+							location_part:ClearAllChildren()
+							location_part.Parent = workspace
+							location_part.CFrame = loot:FindFirstChildOfClass("MeshPart").CFrame
+							local a = Instance.new("Attachment",location_part)
+							local beam = Instance.new("Beam",location_part)
+							beam.FaceCamera = true
+							beam.Width0 = .5
+							beam.Width1 = .5
+							beam.Attachment0 = a
+							beam.Attachment1 = game.Players.LocalPlayer.Character.Head.FaceFrontAttachment 
 						else 
 							warn("unable to find a valid teleportable part")
 						end
 						
 					elseif loot:IsA("Part") or loot:IsA("MeshPart") then
-						player.Character.HumanoidRootPart.CFrame = loot.CFrame
+						location_part:ClearAllChildren()
+						location_part.Parent = workspace
+						location_part.CFrame = loot.CFrame
+						local a = Instance.new("Attachment",location_part)
+						local beam = Instance.new("Beam",location_part)
+						beam.FaceCamera = true
+						beam.Width0 = .5
+						beam.Width1 = .5
+						beam.Attachment0 = a
+						beam.Attachment1 = game.Players.LocalPlayer.Character.Head.FaceFrontAttachment 
 					end
 				end)
 			end)()
@@ -501,15 +541,44 @@ local script = UI["9"]
 				clone_button.MouseButton1Click:connect(function()
 					if loot:IsA("Model") then
 						if loot:FindFirstChildOfClass("Part") then
-							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("Part").CFrame 
+							location_part:ClearAllChildren()
+							location_part.Parent = workspace
+							location_part.CFrame = loot:FindFirstChildOfClass("Part").CFrame 
+
+							local a = Instance.new("Attachment",location_part)
+							local beam = Instance.new("Beam",location_part)
+							beam.FaceCamera = true
+							beam.Width0 = .5
+							beam.Width1 = .5
+							beam.Attachment0 = a
+							beam.Attachment1 = game.Players.LocalPlayer.Character.Head.FaceFrontAttachment 		
 						elseif loot:FindFirstChildOfClass("MeshPart") then
-							player.Character.HumanoidRootPart.CFrame = loot:FindFirstChildOfClass("MeshPart").CFrame 
+							location_part:ClearAllChildren()
+							location_part.Parent = workspace
+							location_part.CFrame = loot:FindFirstChildOfClass("MeshPart").CFrame 
+
+							local a = Instance.new("Attachment",location_part)
+							local beam = Instance.new("Beam",location_part)
+							beam.FaceCamera = true
+							beam.Width0 = .5
+							beam.Width1 = .5
+							beam.Attachment0 = a
+							beam.Attachment1 = game.Players.LocalPlayer.Character.Head.FaceFrontAttachment 		
 						else 
 							warn("unable to find a valid teleportable part")
 						end
 	
 					elseif loot:IsA("Part") or loot:IsA("MeshPart") then
-						player.Character.HumanoidRootPart.CFrame = loot.CFrame
+						location_part:ClearAllChildren()
+						location_part.Parent = workspace
+						location_part.CFrame = loot.CFrame
+						local a = Instance.new("Attachment",location_part)
+						local beam = Instance.new("Beam",location_part)
+						beam.FaceCamera = true
+						beam.Width0 = .5
+						beam.Width1 = .5
+						beam.Attachment0 = a
+						beam.Attachment1 = game.Players.LocalPlayer.Character.Head.FaceFrontAttachment 
 					end
 				end)
 			end)()
@@ -606,22 +675,7 @@ local script = UI["28"]
 	holder = script.Parent
 	
 	--// DATA
-	locating = true
-	locations = {
-		["Military"] = Vector3.new(-1032, 80, 269);
-		["Sherrif"] = Vector3.new(-2149, 106, 9);
-		["Terminus"] = Vector3.new(-3572, 80, -3480);
-		["Woodbury"] = Vector3.new(-8064, 80, -2728);
-		["Prison"] =  Vector3.new(-7566, 81, 2075);
-		["Town"] = Vector3.new(-4679, 97, 2067)
-	}
 	
-	--// SETUP
-	location_part = Instance.new("Part")
-	location_part.Name = "Location"
-	location_part.Anchored = true
-	location_part.CanCollide = false
-	location_part.Transparency = 1
 	
 	for _,button in next,holder:GetChildren() do
 		if button:IsA("TextButton") then
