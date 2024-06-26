@@ -645,7 +645,7 @@ local script = UI["9"]
 			local adjusted_name = p.Name:sub(1, #input_name):lower()
 			if adjusted_name == input_name then
 				if p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p.Character.HumanoidRootPart.CFrame + -p.Character.HumanoidRootPart.CFrame.LookVector * 3
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = p.Character.HumanoidRootPart.CFrame + -p.Character.HumanoidRootPart.CFrame.LookVector * 10
 				end
 				break
 			end
