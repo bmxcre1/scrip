@@ -1,25 +1,45 @@
-local folder = workspace.OtherWaifus
-local player = game.Players.LocalPlayer
-getgenv().tool = "Crowbar"
-local cd = false
-game:GetService"RunService".Heartbeat:connect(function()
-    if player.Backpack:FindFirstChild(getgenv().tool) then
-        if cd== true then return end
-        cd = true
-        for _,v in next,folder:GetChildren() do
-            if v:IsA"Model" and v:FindFirstChild"Head" and v:FindFirstChildOfClass"Humanoid" and v:FindFirstChildOfClass"Humanoid".Health > 0 then
-                local args = {
-                    [1] = "Damage",
-                    [2] = player.Backpack:FindFirstChild(getgenv().tool),
-                    [3] = v.Head
-                }
+--// General variables
+local players = game:GetService("Players")
+local player = players.LocalPlayer
+local replicated_storage = game:GetService("ReplicatedStorage")
+local enemy_folder = workspace:WaitForChild("OtherWaifus")
+_G.tool_name = "Crowbar"
+local rate_cooldown = false
 
-                game:GetService("ReplicatedStorage"):WaitForChild("Container"):WaitForChild("Melee"):WaitForChild("Handle"):FireServer(unpack(args))
+--// Services
+local run_service = game:GetService("RunService")
 
-            end end
-        task.wait(.15)
-        cd = false
-    end
+--// Damage event
+function fire_event(enemy)
+local args = {
+    [1] = "Damage",
+    [2] = player.Backpack:FindFirstChild(_G.tool_name),
+    [3] = enemy.Head
+}
+
+replicated_storage.Container.Melee.Handle:FireServer(unpack(args))
+end
+
+--// Valid enemy
+function validate(enemy)
+if enemy and enemy:IsA"Model" and enemy:FindFirstChildOfClass"Humanoid" and enemy:FindFirstChild"Head" and enemy:FindFirstChildOfClass"Humanoid".Health > 0 then
+return true
+else
+return
+false end
+end
+
+--// Detection loop
+run_service.Heartbeat:connect(function()
+if rate_cooldown == false then
+rate_cooldown = false
+for _,enemy in next,enemy_folder:GetChildren() do 
+if validate(enemy) then
+fire_event(enemy)
+end
+end
+wait(.15)
+rate_cooldown = false
+
+end
 end)
-
-
