@@ -35,6 +35,14 @@ end
 
 function isDescendant(part)
     if game.Players.LocalPlayer.Character then
+        for _,player in next,game.Players:GetPlayers() do 
+            if player ~= game.Players.LocalPlayer and player.Character then
+                if part:IsDescendantOf(player.Character) then
+                    return false
+                end
+            end
+        end
+        
         if part:IsDescendantOf(game.Players.LocalPlayer.Character) then
             return true
         else
