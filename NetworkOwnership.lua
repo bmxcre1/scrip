@@ -45,6 +45,15 @@ end
 
 function checkAnchor(part)
     if part.Anchored == false then
+        for _, weld in next,part:GetJoints() do
+            if weld:IsA("Weld") or weld:IsA("WeldConstraint") then
+                local otherPart = weld.Part1 == part and weld.Part0 or weld.Part1
+                if otherPart and otherPart.Anchored then
+                    warn("[-] Part is welded to an anchored part")
+                    return false
+                end
+            end
+        end
         return true 
     else
         warn("[-] isnetworkowner(<Part>) only works on unanchored parts")
