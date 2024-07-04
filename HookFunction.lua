@@ -8,3 +8,6 @@ getgenv().hookfunction = function(old_func, hook_func)
     else
         return nil, "Both args must be functions"
     end
+end
+
+print("[+] Loaded hookfunction(<Old>, <New>)")
