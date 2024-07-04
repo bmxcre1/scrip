@@ -1,4 +1,4 @@
-getgenv().hookfunction(old_func, hook_func)
+getgenv().hookfunction = function(old_func, hook_func)
     if type(old_func) == "function" and type(hook_func) == "function" then
         local original_func = old_func  
         _G[old_func] = function(...)
