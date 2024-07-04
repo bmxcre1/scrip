@@ -6,7 +6,7 @@ getgenv().hookfunction = function(old_func, hook_func)
         end
         return original_func
     else
-        return nil, "Both args must be functions"
+        return nil, "Both old and hook must be functions"
     end
 end
 
