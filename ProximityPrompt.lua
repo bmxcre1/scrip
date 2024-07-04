@@ -1,4 +1,5 @@
 getgenv().fireproximityprompt = function(prompt)
+	assert(prompt.ClassName == "ProximityPrompt", "Expected ProximityPrompt got "..prompt.ClassName)
 	if typeof(prompt) == "Instance" and prompt:IsA("ProximityPrompt") then
         coroutine.wrap(function()
             local old = {
@@ -32,8 +33,6 @@ getgenv().fireproximityprompt = function(prompt)
                 prompt.HoldDuration = old.hd 
             end)()
         end)()
-	else 
-        warn("expected 'ProximityPrompt'")
 	end
 end
 
