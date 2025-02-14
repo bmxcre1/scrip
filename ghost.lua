@@ -13,7 +13,7 @@ runService.RenderStepped:connect(function()
   if localPlayer and localPlayer.Character:FindFirstChild("Humanoid") then
     local animator = localPlayer.Character.Humanoid.Animator
 
-    for _, track in next, animator:GetPlayingAnimationTracks()
+    for _, track in next, animator:GetPlayingAnimationTracks() do
       local trackName = track.Animation.Name
       if tonumber(trackName) then
         track:AdjustSpeed(SWING_SPEED)
